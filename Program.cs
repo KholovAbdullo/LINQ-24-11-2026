@@ -747,6 +747,472 @@ new Enrollment { Id = 6, StudentId = 3, CourseId = 102, EnrollmentDate = new Dat
 // }
 
 //query syntex
-var res = from c in courses 
-                where (from e in enrollments join s in student on e.StudentId equals s.Id
-                where )
+// var res = from c in courses
+//           where(from e in enrollments
+//                   join s in student on e.StudentId equals s.Id
+//                   where s.Name=="Bob" && e.CourseId == c.Id
+//                   select e).Any()
+//           select c.Title;
+// foreach (var item in res)
+// {
+//     Console.WriteLine(item);
+// }
+
+//======================== ClassTask3 =====================
+List<Persons> persons = new List<Persons>
+{
+    new Persons
+    {
+        Name="Abdullo",
+        Age=16
+    },
+
+    new Persons
+    {
+        Name="Muso",
+        Age=16
+    },
+
+    new Persons
+    {
+        Name="Muhamad",
+        Age=17
+    },
+
+    new Persons
+    {
+        Name="Saad",
+        Age=13
+    },
+
+    new Persons
+    {
+        Name="Hikmat",
+        Age=16
+    },
+};
+
+List<Car> cars = new List<Car>()
+{
+    new Car 
+    { 
+        Model = "BMW", 
+        Year = 2020 
+    },
+
+    new Car 
+    { 
+        Model = "Mercedes", 
+        Year = 2022 
+    },
+
+    new Car 
+    { 
+        Model = "Toyota", 
+        Year = 2020 
+    },
+
+    new Car 
+    { 
+        Model = "Audi", 
+        Year = 2023 
+    },
+
+    new Car 
+    { 
+        Model = "Honda", 
+        Year = 2022 
+    }
+};
+
+List<Book> books = new List<Book>
+{
+    
+    new Book 
+    { 
+        Title = "C#", 
+        Author = "Albahari" 
+    },
+
+    new Book 
+    { 
+        Title = "C#", 
+        Author = "Albahari" 
+    },
+
+    new Book 
+    { 
+        Title = "LINQ", 
+        Author = "Rattz" 
+    }
+};
+
+List<Studentss> studentss = new List<Studentss>
+{
+    
+    new Studentss 
+    { 
+        Name = "Ali", 
+        Age = 22 
+    },
+
+    new Studentss 
+    { 
+        Name = "Bobojon", 
+        Age = 19 
+    },
+
+    new Studentss 
+    { 
+        Name = "Carom", 
+        Age = 20 
+    }
+
+};
+
+// 1 method syntex
+// var res = persons.Where(x=>x.Age>30).Select(x=>x.Name).ToList();
+// res.ForEach(x=>Console.WriteLine(x));
+
+//query syntex
+// var res = (from p in persons
+//             where p.Age>30
+//             select p.Name).ToList();
+// res.ForEach(x=>Console.WriteLine(x));
+
+
+//2 method syntex
+// var res = persons.GroupBy(x=>x.Age)
+//             .Select(x => new
+//             {
+//                 Age=x.Key,
+//                 Count=x.Count()
+//             });
+// foreach (var item in res)
+// {
+//     Console.WriteLine($" Age :{item.Age} count: {item.Count}");
+// }
+
+//query syntex
+// var res = from x in persons
+//             group x by x.Age into x
+//             select new
+//             {
+//                 Age = x.Key,
+//                 Count = x.Count()
+//             };
+// foreach (var item in res)
+// {
+//     Console.WriteLine($"Age: {item.Age} count: {item.Count}");
+// }
+
+//3 method synetx
+// var res = persons.OrderByDescending(x=>x.Age).Take(5);
+// foreach (var item in res)
+// {
+//     Console.WriteLine($"name: {item.Name}  Age: {item.Age}");
+// }
+
+// query syntex
+// var res = (from p in persons
+//             orderby p.Age descending
+//             select p).Take(5);
+// foreach (var item in res)
+// {
+//     Console.WriteLine($"name: {item.Name}  Age: {item.Age}");
+// }
+
+//4 method syntex
+// List<int> ints = [1,2,3,4,5,6,7,8,9];
+// var res = ints.Where(Masiv);
+// foreach (var item in res)
+// {
+//     Console.Write(item+" ");
+// }
+// bool Masiv(int number)
+// {
+//     int cnt=1;
+//     for(int i=1; i <= number / 2; i++)
+//     {
+//         if (number % i == 0)
+//         {
+//             cnt++;
+//         }
+//     }
+//     return cnt==2;
+// }
+
+//query syntex
+// List<int> ints = [1,2,3,4,5,6,7,8,9];
+// var res = from x in ints.AsParallel().AsOrdered()
+//             where Masiv(x)
+//             select x;
+// foreach (var item in res)
+// {
+//     Console.Write(item+" ");
+// }
+// bool Masiv(int number)
+// {
+//     int cnt = 1;
+
+//     for (int i = 1; i <= number / 2; i++)
+//     {
+//         if (number % i == 0)
+//         {
+//             cnt++;
+//         }
+//     }
+
+//     return cnt==2;
+// }
+
+// 5 method syntex
+// GroupCar(cars);
+// void GroupCar(List<Car> cars)
+// {
+//     var res = cars.AsParallel()
+//     .GroupBy(x=>x.Year)
+//     .Select(c => new
+//     {
+//         Year = c.Key,
+//         count = c.Count()
+//     });
+
+//     foreach (var item in res)
+//     {
+//         Console.WriteLine($"{item.Year} | {item.count}");
+//     }   
+// }
+
+//==================== Home Task 3 =======================
+//1 method syntex
+// List<int> ints = [3,1,4,1,5,9,2,6];
+// var res = ints.OrderBy(x=>x).ToList();
+// int i = res.Count/2;
+// if (res.Count % 2 == 0)
+// {
+//     Console.WriteLine(new[] {res[i-1],res[i]}.Average());
+// }   
+
+// else
+// {
+//     Console.WriteLine(res.ElementAt(i));
+// }
+
+//query syntex
+// List<int> ints = [3, 1, 4, 1, 5, 9, 2, 6];
+// var res = (from x in ints
+//             orderby x
+//             select x).ToList();
+// int i=res.Count()/2;
+// if (res.Count() % 2 == 0)
+// {
+//     Console.WriteLine(new[] {res[i-1],res[i]}.Average());
+// }
+// else
+// {
+//     Console.WriteLine(res.ElementAt(i));
+// }
+
+//2 method syntex
+// List<int> A = [1,2,3,4];
+// List<int> B = [2,3,5,6];
+// List<int> C = [2,3,7,8];
+// var res = A.Intersect(B).Intersect(C);
+// foreach (var item in res)
+// {
+//     Console.Write(item+" ");
+// }
+
+//query synetx
+// List<int> A = [1,2,3,4];
+// List<int> B = [2,3,5,6];
+// List<int> C = [2,3,7,8];
+// var res = from x in A
+//             where B.Contains(x) && C.Contains(x)
+//             select x;
+// foreach (var item in res)
+// {
+//     Console.Write(item+" ");
+// }
+
+//3 method syntex
+// List<int> ints = [1,2,3,1,2,5,6];
+// int sum = 0;
+// int max=-9999;
+// for (int i = 1; i < ints.Count; i++)
+// {
+//     if (ints[i] > ints[i - 1])
+//     {
+//         sum+=ints[i];
+//     }
+
+//     else
+//     {
+//         sum=ints[i];
+//     }
+
+//     if (sum > max)
+//     {
+//         max=sum;
+//     }
+// }
+// Console.WriteLine(max);
+
+//query syntex
+// List<int> ints = [1,2,3,1,2,5,6];
+// var res = from x in ints
+//             select x;
+// foreach (var item in ints)
+// {
+// int max=-9999;
+// int sum=0;
+//     for (int i = 1; i < ints.Count; i++)
+//     {
+//         if (ints[i] > ints[i - 1])
+//         {
+//             sum+=ints[i];
+//         }
+
+//         else
+//         {
+//             sum=ints[i];
+//         }
+
+//         if (sum > max)
+//         {
+//             max=sum;
+//         }
+//     }
+//     Console.WriteLine(max);
+//     break;
+// }
+
+//4 method syntex
+// List<string> strings = ["a", "b", "a", "c", "b", "a"];
+// int n=2;
+// var res = strings.AsParallel()
+//             .GroupBy(x=>x)
+//             .OrderByDescending(x=>x.Count())
+//             .Take(n);
+// foreach (var item in res)
+// {
+//     Console.WriteLine(item.Key+" ("+item.Count()+")");
+// }
+
+//query syntex
+// List<string> strings = ["a", "b", "a", "c", "b", "a"];
+// int n=2;
+// var res = (from x in strings.AsParallel()
+//             group x by x
+//             into g
+//             orderby g.Count() descending
+//             select g).Take(n);
+// foreach (var item in res)
+// {
+//     Console.WriteLine(item.Key+" ("+item.Count()+")");
+// }
+
+//5 method syntex
+// var res = books.GroupBy(x=>new {x.Title,x.Author})
+//                 .Select(x=>x.First());
+//     foreach (var item in res)
+//     {
+//         Console.WriteLine("[("+item.Title+", "+item.Author+")]");
+//     }
+
+//query syntex
+// var res = from x in books
+//             group x by new {x.Title,x.Author} into g
+//             select g.First();
+// foreach (var item in res)
+// {
+//     Console.WriteLine("[("+item.Title+", "+item.Author+")]");
+// }
+
+//6 method syntex
+// List<int> ints = [1, 5, 12, 7, 3, 9];
+// int min=4;
+// int max=10;
+// var res = ints.Where(x=>x>=min && x<=max);
+// foreach (var item in res)
+// {
+//     Console.Write(item+" ");
+// }
+
+// query syntex
+// List<int> ints = [1,5,12,7,3,9];
+// int min=4,max=10;
+// var res = from x in ints
+//             where x>=min && x<=max
+//             select x;
+// foreach (var item in res)
+// {
+//     Console.Write(item+" ");
+// }
+
+//7 method syntex
+// int threshold = 20;
+// var res = studentss.Where(x=>x.Age>threshold);
+// var ress = studentss.Where(x=>x.Age<=threshold);
+// Console.Write("Older: ");
+// foreach (var item in res)
+// {
+//     Console.Write(item.Name+" ");
+// }
+// Console.WriteLine();
+// Console.Write("=<20: ");
+// foreach (var item in ress)
+// {
+//     Console.Write(item.Name+", ");
+// }
+
+// query syntex
+// int threshold = 20;
+// var older = from x in studentss
+//             where x.Age > threshold
+//             select x;
+// var younger = from x in studentss
+//               where x.Age <= threshold
+//               select x;
+// foreach (var x in older)
+//     Console.WriteLine("Older: " + x.Name);
+
+// foreach (var x in younger)
+//     Console.WriteLine("<= 20: " + x.Name);
+
+//8 method syntex
+// List<int> numbers = [1, 2, 2, 3, 3, 3, 4];
+// int n = 2;
+// var res = numbers.GroupBy(x => x)
+//                  .Where(x => x.Count()==n);
+
+// foreach (var x in res)
+// {
+//     Console.WriteLine(x.Key);
+// }
+
+//query syntex
+// List<int> numbers = [1, 2, 2, 3, 3, 3, 4];
+// int n = 2;
+// var res = from x in numbers
+//           group x by x into g
+//           where g.Count() == n
+//           select g;
+
+// foreach (var x in res)
+// {
+//     Console.WriteLine(x.Key);
+// }
+
+//9 method syntex
+// List<string> strings = ["cat", "elephant", "ox", "dog"];
+// var res = strings.OrderByDescending(x => x.Length).First();
+// Console.WriteLine(res);
+
+//query syntex
+// List<string> strings = ["cat", "elephant", "ox", "dog"];
+// var res = (from x in strings
+//            orderby x.Length descending
+//            select x).First();
+// Console.WriteLine(res);
